@@ -10,7 +10,6 @@ args <- commandArgs(trailingOnly = TRUE)
 
 is_stdin <- FALSE
 
-args <- c("196.16.11.222", "x")
 # if no cmdline args assume stdin
 if ((length(args) == 0) | (args[1] == "-")) { # read from stdin
   ips <- readLines(file("stdin"), warn = FALSE)
