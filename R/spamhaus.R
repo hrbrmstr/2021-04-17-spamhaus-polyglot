@@ -1,4 +1,4 @@
-#!env Rscript
+#!/usr/local/bin/Rscript
 
 library(httr)
 library(ipaddress)
@@ -10,6 +10,7 @@ args <- commandArgs(trailingOnly = TRUE)
 
 is_stdin <- FALSE
 
+args <- c("196.16.11.222", "x")
 # if no cmdline args assume stdin
 if ((length(args) == 0) | (args[1] == "-")) { # read from stdin
   ips <- readLines(file("stdin"), warn = FALSE)
@@ -31,7 +32,7 @@ if (length(bad)) {
 }
 
 # the good stuff (if any)
-ok  <- ip_address(ips[is_ipv4(validate)])
+ok  <- ip_address(ips[is_ipv4(validate) & !is.na(validate)])
 if (length(ok) == 0) exit(0) # bail if no ips
 
 # turn them into what spamhaus needs
@@ -45,7 +46,12 @@ lapply(
 
 # if any answers are empty, mark them as not on the spamhaus block list
 res[lengths(res) == 0] <- "nbl"
-res <- unlist(setNames(res, ok))
+
+for (idx in seq_along(res)) {
+  names(res[[idx]]) <- rep(ok[[idx]], length(res[[idx]]))
+}
+
+res <- unlist(res, use.names = TRUE)
 
 # make a tidy data frame
 merge(
@@ -67,5 +73,5 @@ merge(
 if (is_stdin) {
   jsonlite::stream_out(res[,c("ip", "code", "zone", "desc")],  stdout(), verbose = FALSE)
 } else {
-  print(res[,c("ip", "code", "zone", "desc")], max = nrow(res))
+  print(res[,c("ip", "code", "zone", "desc")])
 }

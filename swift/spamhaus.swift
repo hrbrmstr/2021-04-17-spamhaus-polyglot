@@ -90,7 +90,7 @@ extension Array where Element == String {
 var args: [String] = CommandLine.arguments
 args.removeFirst(1)
 
-if ((args.count == 1) && (args[0] == "-")) { // use stdin if no args or `-`
+if ((args.count == 0) || ((args.count == 1) && (args[0] == "-"))) { // use stdin if no args or `-`
   while let ip = readLine() {
     dig(ip.spamhausPtr)
       .classifySpamhaus(ip)
