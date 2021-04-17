@@ -14,6 +14,14 @@ Go, Swift, & R (mebbe more at some point) implementations of a command line tool
 
 Does ndjson if IPs are piped from stdin, otherwise does more human readable output.
 
+|language | loc|
+|:--------|---:|
+|Go       |  81|
+|Swift    |  75|
+|R        |  49|
+
+### Swift
+
 ```bash
 $ cat test/ips | swift/spamhaus
 {"code":"127.0.0.2","zone":"SBL","ip":"196.16.11.222","desc":"Spamhaus SBL Data"}
@@ -22,6 +30,8 @@ $ cat test/ips | swift/spamhaus
 {"code":"nbl","zone":"NA","ip":"8.8.8.8","desc":"Not on any Spamhaus blocklist"}
 ```
 
+### Go
+
 ```bash
 $ golang/spamhaus 196.16.11.222 x 8.8.8.8
 196.16.11.222 SBL Spamhaus SBL Data
@@ -29,6 +39,8 @@ $ golang/spamhaus 196.16.11.222 x 8.8.8.8
 x NA Not a valid IPv4 address
 8.8.8.8 nbl Not on any Spamhaus blocklist
 ```
+
+### R
 
 ```
 $ R/spamhaus.R 196.16.11.222 x 8.8.8.8
