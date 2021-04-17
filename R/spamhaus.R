@@ -65,7 +65,7 @@ merge(
 # if we got stuff via stdin, chances are good we want programmatic output
 # so return ndjson, otherwise print the data frame
 if (is_stdin) {
-  jsonlite::stream_out(res[,c("ip", "code", "zone", "desc")], stdout(), verbose = FALSE)
+  jsonlite::stream_out(res[,c("ip", "code", "zone", "desc")],  stdout(), verbose = FALSE)
 } else {
-  print(res[,c("ip", "code", "zone", "desc")]), max = nrow(res))
+  print(res[,c("ip", "code", "zone", "desc")], max = nrow(res))
 }
