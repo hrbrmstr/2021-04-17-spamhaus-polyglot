@@ -13,3 +13,19 @@ Ref: [ISC Diary: Querying Spamhaus for IP reputation, Author: Rick Wanner](https
 Go, Swift, & R (mebbe more at some point) implementations of a command line tool to lookup IP reputation in Spamhaus.
 
 Does ndjson if IPs are piped from stdin, otherwise does more human readable output.
+
+```bash
+$ cat test/ips | swift/spamhaus
+{"code":"127.0.0.2","zone":"SBL","ip":"196.16.11.222","desc":"Spamhaus SBL Data"}
+{"code":"127.0.0.9","zone":"SBL","ip":"196.16.11.222","desc":"Spamhaus DROP\/EDROP"}
+{"code":"NA","zone":"NA","ip":"x","desc":"Not a valid IPv4 address"}
+{"code":"nbl","zone":"NA","ip":"8.8.8.8","desc":"Not on any Spamhaus blocklist"}
+```
+
+```bash
+$ golang/spamhaus 196.16.11.222 x 8.8.8.8
+196.16.11.222 SBL Spamhaus SBL Data
+196.16.11.222 SBL Spamhaus DROP/EDROP
+x NA Not a valid IPv4 address
+8.8.8.8 nbl Not on any Spamhaus blocklist
+```
