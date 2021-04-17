@@ -29,3 +29,13 @@ $ golang/spamhaus 196.16.11.222 x 8.8.8.8
 x NA Not a valid IPv4 address
 8.8.8.8 nbl Not on any Spamhaus blocklist
 ```
+
+```
+$ R/spamhaus.R 196.16.11.222 x 8.8.8.8
+Warning message:
+1 invalid IPv4 addresses in input.
+             ip      code zone                          desc
+1 196.16.11.222 127.0.0.2  SBL             Spamhaus SBL Data
+2 196.16.11.222 127.0.0.9  SBL      Spamhaus DROP/EDROP Data
+3       8.8.8.8       nbl <NA> Not on any Spamhaus blocklist
+```
